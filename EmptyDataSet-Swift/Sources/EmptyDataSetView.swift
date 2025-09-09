@@ -266,7 +266,27 @@ public class EmptyDataSetView: UIView {
                 subviewStrings.append("button")
                 views[subviewStrings.last!] = button
                 
-                contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(padding)-[button(>=0)]-(padding)-|", options: [], metrics: metrics, views: views))
+                // left & right greatOrThanEqual padding
+                contentView.addConstraints(
+                    NSLayoutConstraint.constraints(
+                        withVisualFormat: "H:|-(>=padding)-[button(>=0)]-(>=padding)-|",
+                        options: [],
+                        metrics: metrics,
+                        views: views
+                    )
+                )
+
+                // Add another horizontal centering constraint
+                contentView.addConstraint(
+                    NSLayoutConstraint(item: button,
+                                       attribute: .centerX,
+                                       relatedBy: .equal,
+                                       toItem: contentView,
+                                       attribute: .centerX,
+                                       multiplier: 1.0,
+                                       constant: 0)
+                )
+
             } else {
                 button.isHidden = true
             }
